@@ -3,11 +3,12 @@ require("./config/database").connect();
 const jwt = require("jsonwebtoken");
 const express = require("express");
 const auth = require("./middleware/auth");
+const cors = require("cors");
 
 const app = express();
 
 app.use(express.json());
-// app.use(express);
+app.use(cors());
 
 // Logic goes here
 const User = require("./model/user");
@@ -81,7 +82,7 @@ app.post("/login",  async (req, res)=>{
 
 });
 
-app.get("/welcome", auth, (req, res) => {
+app.get("/welcome", cors(), auth, (req, res) => {
     res.status(200).send("Welcome to My Test App 🙌");
 });
 
